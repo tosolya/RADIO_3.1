@@ -5,92 +5,77 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RadioImprovedTest {
-    RadioImproved radio = new RadioImproved();
-
-    @Test
-    public void createRadio() {
-        String expected = "Радио";
-        assertNull(radio.getName());
-        radio.setName(expected);
-        assertEquals(expected, radio.getName());
-    }
 
     @Test
     public void validateChangFields() {
-        assertEquals(0,radio.getCurrentRadioStation());
-        radio.setCurrentRadioStation(5);
-        assertEquals(5, radio.getCurrentRadioStation());
+        RadioImproved radio = new RadioImproved(10, 0, 5, 100, 0,5);
+        assertEquals(5,radio.getCurrentRadioStation());
     }
 
     @Test
     public void changeAfterLastRadioStation() {
-        radio.setCurrentRadioStation(9);
+        RadioImproved radio = new RadioImproved(10,0,10,100,0,5);
         radio.pressNextStation();
         assertEquals(0, radio.getCurrentRadioStation());
     }
 
     @Test
     public void changeUnderInitialRadioStation() {
-        radio.setCurrentRadioStation(0);
+        RadioImproved radio = new RadioImproved(10,0,0,100,0,5);
         radio.pressPrevStation();
-        assertEquals(9, radio.getCurrentRadioStation());
+        assertEquals(10, radio.getCurrentRadioStation());
     }
 
     @Test
     public void nextRadioStation() {
-        radio.setCurrentRadioStation(7);
+        RadioImproved radio = new RadioImproved(10,0,6,100,0,5);
         radio.pressNextStation();
-        assertEquals(8, radio.getCurrentRadioStation());
+        assertEquals(7, radio.getCurrentRadioStation());
     }
 
     @Test
     public void prevRadioStation() {
-        radio.setCurrentRadioStation(4);
+        RadioImproved radio = new RadioImproved(10,0,6,100,0,5);
         radio.pressPrevStation();
-        assertEquals(3, radio.getCurrentRadioStation());
+        assertEquals(5, radio.getCurrentRadioStation());
     }
 
     @Test
     public void afterInitialRadioStation() {
-        radio.setCurrentRadioStation(12);
-        radio.getMaxRadioStation();
-        assertEquals(0, radio.getCurrentRadioStation());
+        RadioImproved radio = new RadioImproved(10,0,11,100,0,5);
+        assertEquals(10, radio.getMaxRadioStation());
     }
 
     @Test
     public void underInitialRadioStation() {
-        radio.setCurrentRadioStation(-2);
-        radio.getMinRadioStation();
-        assertEquals(0, radio.getCurrentRadioStation());
+        RadioImproved radio = new RadioImproved(10,0,-1,100,0,5);
+        assertEquals(0, radio.getMinRadioStation());
     }
 
 // volume
     @Test
     public void volumeOverMax() {
-        radio.setCurrentVolume(13);
-        radio.getMaxVolume();
-        assertEquals(10, radio.getMaxVolume());
+        RadioImproved radio = new RadioImproved(10,0,3,100,0,120);
+        assertEquals(100, radio.getMaxVolume());
     }
 
     @Test
     public void volumeDownUnderMin() {
-        radio.setCurrentVolume(-11);
-        radio.getMinVolume();
+        RadioImproved radio = new RadioImproved(10,0,3,100,0,-1);
         assertEquals(0, radio.getMinVolume());
     }
 
     @Test
     public void plusVolume() {
-        radio.setCurrentVolume(2);
+        RadioImproved radio = new RadioImproved(10,0,3,100,0,4);
         radio.pressPlusVolume();
-        assertEquals(3, radio.getCurrentVolume());
+        assertEquals(5, radio.getCurrentVolume());
     }
 
     @Test
     public void minusVolume() {
-        radio.setCurrentVolume(5);
+        RadioImproved radio = new RadioImproved(10,0,3,100,0,4);
         radio.pressMinusVolume();
-        assertEquals(4, radio.getCurrentVolume());
+        assertEquals(3, radio.getCurrentVolume());
     }
-
 }

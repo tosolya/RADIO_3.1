@@ -10,6 +10,23 @@ public class RadioImproved {
     private int currentVolume;
     private boolean on;
 
+    public RadioImproved(int maxRadioStation,
+                         int minRadioStation,
+                         int currentRadioStation,
+                         int maxVolume,
+                         int minVolume,
+                         int currentVolume) {
+        this.maxRadioStation = maxRadioStation;
+        this.minRadioStation = minRadioStation;
+        this.currentRadioStation = currentRadioStation;
+        this.maxVolume = maxVolume;
+        this.minVolume = minVolume;
+        this.currentVolume = currentVolume;
+    }
+
+    public RadioImproved() {
+    }
+
     public String getName() {
         return name;
     }
